@@ -56,7 +56,7 @@ const PrSnapshotSchema = z.object({
   checksState: z.enum(["pending", "success", "failure", "neutral"]),
   /** Timestamp of last poll for this PR. */
   lastPollAt: z.string(),
-}).passthrough();
+});
 
 const FeedbackEventSchema = z.object({
   /** Deterministic ID: {prNumber}-{type}-{sourceId}. */
@@ -91,7 +91,7 @@ const FeedbackEventSchema = z.object({
   checkConclusion: z.string().optional(),
   /** When this event was first detected. */
   detectedAt: z.string(),
-}).passthrough();
+});
 
 const RefreshResultSchema = z.object({
   /** GitHub repo that was polled. */
@@ -112,7 +112,7 @@ const RefreshResultSchema = z.object({
   rateLimited: z.boolean(),
   /** Current GitHub rate limit remaining (at time of check). */
   rateLimitRemaining: z.number().optional(),
-}).passthrough();
+});
 
 const RateLimitStateSchema = z.object({
   /** Source identifier (always "github-rest"). */
@@ -123,7 +123,7 @@ const RateLimitStateSchema = z.object({
   lastHitAt: z.string(),
   /** Do not retry before this timestamp. */
   backoffUntil: z.string(),
-}).passthrough();
+});
 
 // --- Helpers ---
 
@@ -273,7 +273,7 @@ function isInBackoff(
 /** Swamp model for polling GitHub PRs and detecting new feedback. */
 export const model = {
   type: "@mgreten/github-pr-feed",
-  version: "2026.06.27.1",
+  version: "2026.06.27.2",
   globalArguments: GlobalArgsSchema,
   resources: {
     refreshResult: {
