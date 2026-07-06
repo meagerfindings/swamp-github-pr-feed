@@ -273,7 +273,7 @@ function isInBackoff(
 /** Swamp model for polling GitHub PRs and detecting new feedback. */
 export const model = {
   type: "@mgreten/github-pr-feed",
-  version: "2026.06.27.2",
+  version: "2026.07.06.1",
   globalArguments: GlobalArgsSchema,
   resources: {
     refreshResult: {
@@ -287,8 +287,12 @@ export const model = {
       description:
         "Per-PR state snapshot with watermarks for deduplication across refresh cycles",
       schema: PrSnapshotSchema,
-      lifetime: "30d" as const,
-      garbageCollection: 100,
+      // Dedup only ever reads the latest watermark per PR; historical versions
+      // are never read back. Keeping a large window bloats the model shard and
+      // makes every refresh re-sync it (observed: 26min writes at 100×30d). Keep
+      // a small debugging window and expire closed-PR snapshots quickly.
+      lifetime: "7d" as const,
+      garbageCollection: 5,
     },
     feedbackEvent: {
       description:
