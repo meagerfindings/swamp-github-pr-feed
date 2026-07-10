@@ -12,3 +12,13 @@
 .claude/scheduled_tasks.lock
 .claude/scheduled_tasks.json
 # END swamp managed section
+
+# Repo-specific additions (not swamp managed)
+
+# Generic bundled skill docs (same boilerplate in every swamp repo, not
+# specific to this extension)
+.claude/skills/
+
+# Local model instance data/config — belongs in the user's local working
+# state, never in the published extension repo
+/models/
