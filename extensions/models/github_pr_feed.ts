@@ -149,7 +149,7 @@ async function runGh(args: string[]): Promise<GhResult> {
 }
 
 /** Parse JSON from gh output, returning an empty array on failure. */
-function parseJsonArray(raw: string): Array<Record<string, unknown>> {
+export function parseJsonArray(raw: string): Array<Record<string, unknown>> {
   try {
     const parsed = JSON.parse(raw);
     return Array.isArray(parsed) ? parsed : [];
@@ -159,13 +159,13 @@ function parseJsonArray(raw: string): Array<Record<string, unknown>> {
 }
 
 /** Classify an author as human or bot. */
-function classifyAuthor(login: string): "human" | "bot" {
+export function classifyAuthor(login: string): "human" | "bot" {
   if (login.endsWith("[bot]")) return "bot";
   return "human";
 }
 
 /** Truncate a string to maxLen characters. */
-function truncate(s: string | undefined | null, maxLen: number): string {
+export function truncate(s: string | undefined | null, maxLen: number): string {
   if (!s) return "";
   return s.length > maxLen ? s.slice(0, maxLen) + "…" : s;
 }
