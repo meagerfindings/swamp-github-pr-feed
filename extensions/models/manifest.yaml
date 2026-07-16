@@ -1,6 +1,6 @@
 manifestVersion: 1
 name: "@mgreten/github-pr-feed"
-version: "2026.07.10.1"
+version: "2026.07.16.1"
 description: >
   Poll open GitHub PRs for new reviews, comments, and check failures with
   per-PR watermark deduplication and GitHub API rate-limit backoff. One
